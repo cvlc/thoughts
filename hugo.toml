@@ -1,0 +1,21 @@
+baseURL = 'https://thoughts.lacroix.tech/'
+languageCode = 'en-us'
+title = 'thoughts'
+theme = 'anubis2'
+
+[params.author]
+name = "Calum"
+email = "c@linux.com"
+location = "Scotland"
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.highlight]
+style = 'solarized-dark'
+
+[params]
+social = [
+    { id = "github", url = "https://github.com/cvlc" },
+    { id = "linkedin", url = "https://www.linkedin.com/in/cvlc" },
+]

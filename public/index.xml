@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>thoughts</title>
+    <link>/</link>
+    <description>thoughts</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+      
+        <managingEditor>c@linux.com
+          
+            (Calum)
+          
+        </managingEditor>
+      
+
+      
+    
+
+    
+    <lastBuildDate>Thu, 13 Mar 2025 09:52:26 +0000</lastBuildDate>
+    
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Smarter News Consumption with FreshRSS and AI</title>
+      <link>/posts/ai-newsreader/</link>
+      <pubDate>Thu, 13 Mar 2025 09:52:26 +0000</pubDate>
+      <author>c@linux.com (Calum)</author>
+      <guid>/posts/ai-newsreader/</guid>
+      <description>&lt;h1 id=&#34;smarter-news-consumption-with-freshrss-and-ai&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#smarter-news-consumption-with-freshrss-and-ai&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Smarter News Consumption with FreshRSS and AI
+&lt;/div&gt;
+&lt;/h1&gt;
+&lt;h2 id=&#34;introduction&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#introduction&#34;&gt;
+        #
+    &lt;/a&gt;
+    Introduction
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Lately, I’ve been reflecting on how I consume news. In an era dominated by data-driven algorithms, information is a valuable commodity, while attention and mindshare are finite resources. Filtering out the signal from the noise—distinguishing what’s truly useful from the deluge of content flooding social media, newsletters, and feeds—requires effort. Too often, low-value content slips through, cluttering our reading experience.&lt;/p&gt;
+&lt;p&gt;By &amp;ldquo;low-value content,&amp;rdquo; I mean:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Sales pitches for products I don’t want or need.&lt;/li&gt;
+&lt;li&gt;Superficial, highly editorialized thought pieces with little original insight.&lt;/li&gt;
+&lt;li&gt;Clickbait articles designed to provoke emotional engagement rather than inform.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This kind of content often sneaks in alongside more valuable articles, making it tricky to avoid. While &lt;a href=&#34;https://ground.news/&#34;&gt;Ground News&lt;/a&gt; helps with political bias tracking, I wanted something more tailored to my trusted information sources—without relying on someone else&amp;rsquo;s curated feeds.&lt;/p&gt;
+&lt;p&gt;Over the years, I’ve carefully built a collection of high-quality news feeds, migrating from Google Reader to Feedly and now to my self-hosted FreshRSS instance. Owning my data and controlling my news flow is important to me, but I also want to enhance how I interact with that information.&lt;/p&gt;
+&lt;h2 id=&#34;the-problem-staying-updated-without-overload&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-problem-staying-updated-without-overload&#34;&gt;
+        #
+    &lt;/a&gt;
+    The Problem: Staying Updated Without Overload
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;One challenge I face with FreshRSS is that I don&amp;rsquo;t check it frequently enough. During the day, I’m mostly focused on work, responding to notifications, with occasional evening catch-ups. Ideally, I’d like a daily roundup of relevant news—without constant interruptions from notifications.&lt;/p&gt;
+&lt;p&gt;I explored existing tools, but most either required me to overhaul my feed management or migrate to a different system. Others were hosted solutions that meant giving up control over my data. None quite fit my needs.&lt;/p&gt;
+&lt;p&gt;So, I decided to build my own FreshRSS plugin.&lt;/p&gt;
+&lt;h2 id=&#34;diving-into-php-reluctantly&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#diving-into-php-reluctantly&#34;&gt;
+        #
+    &lt;/a&gt;
+    Diving into PHP (Reluctantly)
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;It’s been a long time since I’ve touched PHP. My memories of it mostly involve SQL injections and the perils of weak typing. But FreshRSS and its extensions are written in PHP, so I had to roll up my sleeves and dive in. Fortunately, PHP is old enough that large language models (LLMs) are well-trained on it, making AI-assisted development viable.&lt;/p&gt;
+&lt;p&gt;I started an AI chat session with this prompt:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;I am writing a plugin for FreshRSS. The relevant documentation is:
+
+&amp;lt;SNIP&amp;gt;
+
+I would like to:
+* Automatically classify every article with tags.
+* Generate an automatic roundup summary each day, updating as new articles arrive.
+* Retitle every article with key information.
+* Insert an executive summary at the start of each article.
+
+How can I accomplish this?
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The AI provided a solid first attempt, leveraging FreshRSS’s plugin documentation. Of course, it hallucinated a few non-existent class functions, but finding functional equivalents was straightforward. I took on the role of reviewer, refining the code iteratively rather than blindly following its output. This approach—guiding AI suggestions with hands-on oversight—proved much more efficient than simply pasting errors back into the model and hoping for a better response.&lt;/p&gt;
+&lt;p&gt;Another valuable resource was &lt;a href=&#34;https://github.com/reply2future/xExtension-NewsAssistant&#34;&gt;reply2future/xExtension-NewsAssistant&lt;/a&gt;, an open-source extension with some overlapping features. By pasting snippets of its code into the AI chat, I could provide a working reference for the model to learn from.&lt;/p&gt;
+&lt;h2 id=&#34;the-result-freshrss-ai-assistant&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#the-result-freshrss-ai-assistant&#34;&gt;
+        #
+    &lt;/a&gt;
+    The Result: FreshRSS AI Assistant
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;The result of this effort is &lt;a href=&#34;https://github.com/cvlc/freshrss-ai-assistant&#34;&gt;cvlc/freshrss-ai-assistant&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;This extension delivers on all the features I set out to build:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Automatic tagging&lt;/strong&gt;: Articles are classified based on themes, sentiment, or custom rules.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Daily roundup summaries&lt;/strong&gt;: A consolidated digest updates dynamically with new content.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Smart retitling&lt;/strong&gt;: Article headlines are rewritten for clarity and key information.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Inline executive summaries&lt;/strong&gt;: A brief synopsis appears at the start of each article.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The plugin is configurable, allowing users to customize prompts and choose their preferred AI model. By default, it uses &lt;code&gt;gpt-4o-mini&lt;/code&gt; as a cost-effective option with a neutral, de-editorialized summarization approach. However, the possibilities are wide open, including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Summaries from a specific point of view (e.g., as a financial analyst, Otto von Bismarck, or even a pirate).&lt;/li&gt;
+&lt;li&gt;Thematic tagging based on length, quality, or sentiment.&lt;/li&gt;
+&lt;li&gt;Bold, tabloid-style headlines for added drama.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It connects to the OpenAI API, but for those seeking more control, I recommend using &lt;a href=&#34;https://www.litellm.ai/&#34;&gt;LiteLLM&lt;/a&gt; as a self-hosted proxy for alternative models or cost tracking. Simply adjust the base URLs and API keys accordingly.&lt;/p&gt;
+&lt;p&gt;For usability, I added an option to mark summarized articles as &amp;ldquo;read&amp;rdquo; when clicking the Summarize button. This allows for quick skimming while keeping feeds tidy—if something catches your eye, you can always search for the full article later.&lt;/p&gt;
+&lt;h2 id=&#34;next-steps&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#next-steps&#34;&gt;
+        #
+    &lt;/a&gt;
+    Next Steps
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;If time permits, I’d love to expand this further:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Newsletter support&lt;/strong&gt;: Integrate with tools like &lt;a href=&#34;https://github.com/leafac/kill-the-newsletter&#34;&gt;Kill the Newsletter!&lt;/a&gt; or &lt;a href=&#34;https://github.com/remko/atomail&#34;&gt;Atomail&lt;/a&gt; for seamless newsletter-to-RSS conversion.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Event-driven delivery&lt;/strong&gt;: Use &lt;a href=&#34;https://www.windmill.dev/&#34;&gt;Windmill&lt;/a&gt; or similar tools for scheduled summaries, sent via smart speaker or other channels.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;API-based integrations&lt;/strong&gt;: The plugin already includes an API for fetching summaries programmatically—this could be extended to create a single consolidated newsletter or integrate with home automation systems.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For now, though, I’m happy to have a tool that makes my news consumption smarter, more efficient, and under my control. If you’re using FreshRSS and want to streamline your feeds, check out &lt;a href=&#34;https://github.com/cvlc/freshrss-ai-assistant&#34;&gt;cvlc/freshrss-ai-assistant&lt;/a&gt; and let me know what you think!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Intro</title>
+      <link>/posts/intro/</link>
+      <pubDate>Tue, 11 Mar 2025 20:05:49 +0000</pubDate>
+      <author>c@linux.com (Calum)</author>
+      <guid>/posts/intro/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#introduction&#34;&gt;
+        #
+    &lt;/a&gt;
+    Introduction
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Hello! This blog is a work in progress, please stand by for more information.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
